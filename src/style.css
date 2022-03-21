@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#submit {
+  @apply min-w-fit h-10 ml-2 px-4 py-2 rounded;
+}
+
+.submit-disabled {
+  @apply bg-slate-300;
+}
+.submit-enabled {
+  @apply bg-orange-400 hover:bg-orange-500;
+}
+
+.todo-item {
+  @apply mb-2 w-full bg-white rounded;
+}
+
+.todo-item[data-limit='false'] {
+  @apply bg-amber-200;
+}
+
+.todo-item.completed {
+  @apply opacity-60 bg-slate-200;
+}
+
+.todo-div {
+  @apply flex flex-col w-[100%] ml-auto mr-auto;
+}
+
+.todo-todo {
+  @apply py-2 px-4  text-left break-words;
+}
+
+.completed .todo-todo {
+  @apply line-through;
+}
+
+.todo-task {
+  @apply flex flex-row justify-between items-center w-full px-4 border-t border-slate-200 rounded;
+}
+
+.todo-date {
+  @apply min-w-fit py-2 bg-transparent text-sm;
+}
+
+.limit-over {
+  @apply ml-4 text-red-600 text-base;
+}
+
+.todo-item.completed .limit-over {
+  @apply hidden;
+}
+
+.edit-btn {
+  @apply bg-blue-300 px-4 py-1;
+}
+
+.complete-btn {
+  @apply ml-4 bg-amber-300 px-4 py-1;
+}
+
+.trash-btn {
+  @apply ml-4 bg-lime-300 px-4 py-1;
+}
+
+.is-open#modal {
+  @apply opacity-100 visible;
+}
