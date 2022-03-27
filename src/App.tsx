@@ -1,13 +1,17 @@
-import { Toaster } from 'react-hot-toast'
+import { BrowserRouter } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
-import './style.css'
-import { Todo } from './Todo'
+import { Router } from './router/Router';
+import './style.css';
+import { RecoilRoot } from 'recoil';
 
 export function App() {
   return (
-    <>
-      <Toaster position="top-right" />
-      <Todo />
-    </>
-  )
+    <RecoilRoot>
+      <BrowserRouter>
+        <Toaster position="top-right" />
+        <Router />
+      </BrowserRouter>
+    </RecoilRoot>
+  );
 }

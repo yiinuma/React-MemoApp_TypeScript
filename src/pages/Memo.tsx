@@ -1,18 +1,18 @@
 import { memo, VFC } from 'react';
 import { RecoilRoot } from 'recoil';
 
-import { InputForm } from './components/InputForm';
-import { GetWebApi } from './components/GetWebApi';
-import { ClearList } from './components/ClearList';
-import { Modal } from './components/Modal';
-import { Sort } from './components/Sort';
-import { Title } from './components/Title';
-import { TodoList } from './components/TodoList';
-import { useStorage } from './hooks/useStorage';
-import './style.css';
-import { ModalProvider } from './components/provider/ModalProvider';
+import { InputForm } from '../components/InputForm';
+import { GetWebApi } from '../components/GetWebApi';
+import { ClearList } from '../components/ClearList';
+import { Modal } from '../components/Modal';
+import { Sort } from '../components/Sort';
+import { Title } from '../components/Title';
+import { TodoList } from '../components/TodoList';
+import { useStorage } from '../hooks/useStorage';
+import '../style.css';
+import { ModalProvider } from '../components/provider/ModalProvider';
 
-export const Todo: VFC = memo(() => {
+export const Memo: VFC = memo(() => {
   const { todoList, putTodoList, clearTodoList } = useStorage();
 
   return (
