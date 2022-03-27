@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import toast from 'react-hot-toast';
 
 import { TodoType } from '../types';
+import { useMemoCrud } from '../hooks/useMemoCrud';
 
 type Props = {
   todoList: TodoType[];
@@ -14,6 +15,7 @@ export const InputForm: VFC<Props> = memo((props) => {
   const [text, setText] = useState('');
   const [limit, setLimit] = useState('');
   const [submitDisabled, setSubmitDisabled] = useState(true);
+  const { readMemo, createMemo } = useMemoCrud();
 
   const getInputDay = () => {
     const inputDay = dayjs().format('YYYY-MM-DD HH:mm:ss');
@@ -31,6 +33,13 @@ export const InputForm: VFC<Props> = memo((props) => {
         complete: false,
       },
     ];
+    const title = '今日の講義について';
+    const category = '授業メモ';
+    const description = '第９回の授業メモです\\nこんなことしました。';
+    const date = '2021/08/01';
+    const mark_div = 1;
+    readMemo();
+    createMemo(title, category, description, date, mark_div);
     putTodoList(newTodoList);
     toast.success(`Todoを登録しました`);
     setText('');
@@ -68,12 +77,7 @@ export const InputForm: VFC<Props> = memo((props) => {
         />
       </div>
 
-      <input
-        id="submit"
-        type="submit"
-        className={submitDisabled ? `submit-disabled` : `submit-enabled`}
-        value="登録"
-      />
+      <input id="submit" type="submit" className={submitDisabled ? `submit-disabled` : `submit-enabled`} value="登録" />
     </form>
   );
 });

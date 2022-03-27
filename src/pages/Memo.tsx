@@ -1,4 +1,4 @@
-import { memo, VFC } from 'react';
+import { memo, useMemo, VFC } from 'react';
 import { RecoilRoot } from 'recoil';
 
 import { InputForm } from '../components/InputForm';
@@ -11,9 +11,14 @@ import { TodoList } from '../components/TodoList';
 import { useStorage } from '../hooks/useStorage';
 import '../style.css';
 import { ModalProvider } from '../components/provider/ModalProvider';
+import { read } from 'fs';
+import { useMemoCrud } from '../hooks/useMemoCrud';
 
 export const Memo: VFC = memo(() => {
   const { todoList, putTodoList, clearTodoList } = useStorage();
+  // const [readMemo, createMemo] = useMemoCrud();
+  // createMemo();
+  // readMemo();
 
   return (
     <RecoilRoot>
