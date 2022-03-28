@@ -37,9 +37,9 @@ export const InputForm: VFC<Props> = memo((props) => {
     const category = '授業メモ';
     const description = '第９回の授業メモです\\nこんなことしました。';
     const date = '2021/08/01';
-    const mark_div = 1;
+    const markDiv = 1;
     readMemo();
-    createMemo(title, category, description, date, mark_div);
+    createMemo(title, category, description, date, markDiv);
     putTodoList(newTodoList);
     toast.success(`Todoを登録しました`);
     setText('');
