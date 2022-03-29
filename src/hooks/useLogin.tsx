@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useCallback, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +17,7 @@ export const useLogin = () => {
   useEffect(() => {
     if (!localAuth || !localToken) {
       localStorage.setItem('auth', JSON.stringify(false));
-      localStorage.setItem('token', JSON.stringify(null));
+      localStorage.setItem('token', JSON.stringify(''));
     }
   }, [localAuth, localToken]);
 
@@ -24,13 +25,10 @@ export const useLogin = () => {
     (email: string, pass: string) => {
       loginInstance
         .post('login', { email, password: pass })
-        .then((response) => {
+        .then((res) => {
           setAuth(true);
           localStorage.setItem('auth', JSON.stringify(true));
-          console.log(response);
-          //
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          const apiToken: string = response.data.access_token;
+          const apiToken: string = res.data.access_token;
 
           localStorage.setItem('token', apiToken);
           toast.success('ログインに成功しました');
