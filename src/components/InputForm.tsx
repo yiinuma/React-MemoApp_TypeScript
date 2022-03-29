@@ -2,48 +2,30 @@ import { memo, useState, VFC } from 'react';
 import dayjs from 'dayjs';
 import toast from 'react-hot-toast';
 
-import { TodoType } from '../types';
 import { useMemoCrud } from '../hooks/useMemoCrud';
 
-type Props = {
-  todoList: TodoType[];
-  putTodoList: (items: TodoType[]) => void;
-};
-
-export const InputForm: VFC<Props> = memo((props) => {
-  const { todoList, putTodoList } = props;
-  const [text, setText] = useState('');
-  const [limit, setLimit] = useState('');
+export const InputForm: VFC = memo(() => {
+  const [title, setTitle] = useState<string>('');
+  const [category, setCategory] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
   const [submitDisabled, setSubmitDisabled] = useState(true);
   const { readMemo, createMemo } = useMemoCrud();
 
   const getInputDay = () => {
-    const inputDay = dayjs().format('YYYY-MM-DD HH:mm:ss');
+    const inputDay = dayjs().format('YYYY/MM/DD');
     return inputDay;
   };
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    const newTodoList = [
-      ...todoList,
-      {
-        id: getInputDay(),
-        text,
-        limit,
-        complete: false,
-      },
-    ];
-    const title = '今日の講義について';
-    const category = '授業メモ';
-    const description = '第９回の授業メモです\\nこんなことしました。';
-    const date = '2021/08/01';
-    const markDiv = 1;
+    const date = getInputDay();
+    const complete = false;
     readMemo();
-    createMemo(title, category, description, date, markDiv);
-    putTodoList(newTodoList);
+    createMemo(title, category, description, date, complete);
     toast.success(`Todoを登録しました`);
-    setText('');
-    setLimit('');
+    setTitle('');
+    setCategory('');
+    setDescription('');
     setSubmitDisabled(true);
   };
 
@@ -53,26 +35,41 @@ export const InputForm: VFC<Props> = memo((props) => {
         新規Todo
         <input
           type="text"
-          placeholder="Todoを入力"
+          placeholder="タイトルを入力"
           className="text-m placeholder-blueGray-300 h-10 w-full rounded border-0 px-2 text-gray-600 shadow outline-none focus:outline-none focus:ring"
           required
-          value={text}
+          value={title}
           onChange={(e) => {
-            setText(e.target.value);
-            setSubmitDisabled(limit === '');
+            setTitle(e.target.value);
+            setSubmitDisabled(title === '' && category === '' && description === '');
           }}
         />
       </div>
       <div className="ml-2 block">
-        期限{' '}
+        カテゴリー
         <input
-          type="date"
+          type="text"
+          placeholder="カテゴリー"
           className="text-m placeholder-blueGray-300 h-10 w-full rounded border-0 bg-white px-2 text-gray-600 shadow outline-none focus:outline-none focus:ring"
           required
-          value={limit}
+          value={category}
           onChange={(e) => {
-            setLimit(e.target.value);
-            setSubmitDisabled(text === '');
+            setCategory(e.target.value);
+            setSubmitDisabled(title === '' && category === '' && description === '');
+          }}
+        />
+      </div>
+      <div className="ml-2 block">
+        内容
+        <input
+          type="text"
+          placeholder="内容"
+          className="text-m placeholder-blueGray-300 h-10 w-full rounded border-0 bg-white px-2 text-gray-600 shadow outline-none focus:outline-none focus:ring"
+          required
+          value={description}
+          onChange={(e) => {
+            setDescription(e.target.value);
+            setSubmitDisabled(title === '' && category === '' && description === '');
           }}
         />
       </div>
