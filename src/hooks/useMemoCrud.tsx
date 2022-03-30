@@ -14,11 +14,11 @@ export const useMemoCrud = () => {
       loginInstance
         .post('/memo', { title, category, description, date, mark_div: Number(complete) })
         .then((res: AxiosResponse<MemoType[]>) => {
-          toast.success('メモを更新しました');
+          toast.success('新規登録しました');
           console.log(res);
         })
         .catch((e: AxiosError<{ error: string }>) => {
-          toast.success('メモを更新に失敗しました');
+          toast.success('新規登録に失敗しました');
           console.log(e.message);
         });
     },
@@ -30,11 +30,11 @@ export const useMemoCrud = () => {
     loginInstance
       .get('/memos', {})
       .then((res: AxiosResponse<MemoType[]>) => {
-        toast.success('メモ一覧を取得しました');
+        toast.success('一覧を取得しました');
         console.log(res);
       })
       .catch((e: AxiosError<{ error: string }>) => {
-        toast.success('メモ一覧取得に失敗しました');
+        toast.success('一覧取得に失敗しました');
         console.log(e.message);
       });
   }, [loginInstance]);
@@ -45,11 +45,11 @@ export const useMemoCrud = () => {
       loginInstance
         .put(`/memo${id}`, { title, category, description, date, mark_div: Number(complete) })
         .then((res: AxiosResponse<MemoType[]>) => {
-          toast.success('メモを更新しました');
+          toast.success('更新しました');
           console.log(res);
         })
         .catch((e: AxiosError<{ error: string }>) => {
-          toast.success('メモを更新に失敗しました');
+          toast.success('更新に失敗しました');
           console.log(e.message);
         });
     },

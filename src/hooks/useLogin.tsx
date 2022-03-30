@@ -1,11 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useCallback, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { authState } from '../components/store/authState';
 import { axiosInstance } from '../lib/axiosInstance';
+
+type AxiosType = {
+  access_token: string;
+};
 
 export const useLogin = () => {
   const navigate = useNavigate();
@@ -24,13 +26,11 @@ export const useLogin = () => {
   const login = useCallback(
     (email: string, pass: string) => {
       loginInstance
-        .post('login', { email, password: pass })
+        .post<AxiosType>('login', { email, password: pass })
         .then((res) => {
           setAuth(true);
           localStorage.setItem('auth', JSON.stringify(true));
-          const apiToken: string = res.data.access_token;
-
-          localStorage.setItem('token', apiToken);
+          localStorage.setItem('token', res.data.access_token);
           toast.success('ログインに成功しました');
           navigate('memo');
         })
