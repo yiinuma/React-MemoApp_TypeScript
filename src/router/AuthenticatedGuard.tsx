@@ -8,5 +8,6 @@ export const AuthenticatedGuard: FC = ({ children }) => {
 
   const location = useLocation();
 
+  // eslint-disable-next-line react/jsx-no-useless-fragment
   return auth ? <>{children}</> : <Navigate to="/" replace={false} state={{ from: location }} />;
 };

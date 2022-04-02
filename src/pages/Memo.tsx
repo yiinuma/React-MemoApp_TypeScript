@@ -8,6 +8,7 @@ import { TodoList } from '../components/TodoList';
 import { useStorage } from '../hooks/useStorage';
 import '../style.css';
 import { ModalProvider } from '../components/provider/ModalProvider';
+import { Logout } from '../components/Logout';
 
 export const Memo: VFC = memo(() => {
   const { todoList, putTodoList } = useStorage();
@@ -15,7 +16,8 @@ export const Memo: VFC = memo(() => {
   return (
     <RecoilRoot>
       <ModalProvider>
-        <div className="min-h-screen bg-gradient-to-l from-green-500 to-green-700 pt-4 pl-4">
+        <div className="min-h-screen bg-gradient-to-l from-green-500 to-green-700 px-4 pt-4">
+          <Logout />
           <Title />
           <div className="mt-8 ml-auto mr-auto flex w-[80%] flex-col justify-center">
             <InputForm />
