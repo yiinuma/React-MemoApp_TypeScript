@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError } from 'axios';
 import { useCallback } from 'react';
 import toast from 'react-hot-toast';
 import { axiosInstance } from '../lib/axiosInstance';
@@ -12,8 +12,8 @@ export const useMemoCrud = () => {
   const createMemo = useCallback(
     (title: string, category: string, description: string, date: string, complete: boolean) => {
       loginInstance
-        .post('/memo', { title, category, description, date, mark_div: Number(complete) })
-        .then((res: AxiosResponse<MemoType[]>) => {
+        .post<MemoType[]>('/memo', { title, category, description, date, mark_div: Number(complete) })
+        .then((res) => {
           toast.success('新規登録しました');
           console.log(res);
         })
@@ -28,8 +28,8 @@ export const useMemoCrud = () => {
   // 何でもメモ一覧取得
   const readMemo = useCallback(() => {
     loginInstance
-      .get('/memos', {})
-      .then((res: AxiosResponse<MemoType[]>) => {
+      .get<MemoType[]>('/memos', {})
+      .then((res) => {
         toast.success('一覧を取得しました');
         console.log(res);
       })
@@ -44,7 +44,7 @@ export const useMemoCrud = () => {
     (id: string, title: string, category: string, description: string, date: string, complete: boolean) => {
       loginInstance
         .put(`/memo${id}`, { title, category, description, date, mark_div: Number(complete) })
-        .then((res: AxiosResponse<MemoType[]>) => {
+        .then((res) => {
           toast.success('更新しました');
           console.log(res);
         })
@@ -56,5 +56,22 @@ export const useMemoCrud = () => {
     [loginInstance]
   );
 
-  return { createMemo, readMemo, upDateMemo };
+  // 何でもメモ削除
+  const deleteMemo = useCallback(
+    (id: string) => {
+      loginInstance
+        .delete(`/memo${id}`)
+        .then((res) => {
+          toast.success('削除しました');
+          console.log(res);
+        })
+        .catch((e: AxiosError<{ error: string }>) => {
+          toast.success('削除に失敗しました');
+          console.log(e.message);
+        });
+    },
+    [loginInstance]
+  );
+
+  return { createMemo, readMemo, upDateMemo, deleteMemo };
 };

@@ -9,7 +9,7 @@ export function App() {
   return (
     <RecoilRoot>
       <BrowserRouter>
-        <Toaster position="top-right" />
+        <Toaster position="top-center" />
         <Router />
       </BrowserRouter>
     </RecoilRoot>

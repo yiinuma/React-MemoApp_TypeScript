@@ -12,7 +12,8 @@ export const Logout: VFC = () => {
   const handleLogout = () => {
     setAuth(false);
     localStorage.removeItem('token');
-    localStorage.removeItem('auth');
+    localStorage.removeItem('exp');
+    localStorage.setItem('auth', JSON.stringify(false));
     navigate('/');
     toast.success('ログインアウトしました');
   };
