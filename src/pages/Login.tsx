@@ -1,8 +1,9 @@
 import { ChangeEventHandler, useEffect, useState, VFC } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { authState } from '../components/store/authState';
+import { LoadingState } from '../components/store/loadingState';
 import { useLogin } from '../hooks/useLogin';
 
 export const Login: VFC = () => {
@@ -12,6 +13,7 @@ export const Login: VFC = () => {
   const localExp = Number(localStorage.getItem('exp'));
   const localAuth = localStorage.getItem('auth');
   const [auth, setAuth] = useRecoilState<boolean>(authState);
+  const Loading = useRecoilValue<boolean>(LoadingState);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,7 +39,15 @@ export const Login: VFC = () => {
 
   return (
     <figure className="flex h-screen bg-gray-100">
-      <div className="border-primaryBorder m-auto w-full max-w-md rounded-lg border bg-white py-10 px-1 shadow-lg">
+      <div className="border-primaryBorder relative m-auto w-full max-w-md rounded-lg border bg-white py-10 px-1 shadow-lg">
+        {Loading && (
+          <>
+            <div className="absolute top-[40%] left-[50%] z-20 translate-x-[-50%]">
+              <div className="h-12 w-12 animate-spin rounded-xl bg-blue-300" />
+            </div>
+            <div className="absolute left-0 right-0 top-0 bottom-0 z-10 bg-slate-50 opacity-70" />
+          </>
+        )}
         <blockquote className="text-center text-2xl font-medium">
           <p className="text-lg font-semibold">Welcome to Memo-App</p>
         </blockquote>

@@ -1,9 +1,11 @@
 import jwtDecode from 'jwt-decode';
+import { loadavg } from 'os';
 import { useCallback, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { authState } from '../components/store/authState';
+import { LoadingState } from '../components/store/loadingState';
 import { axiosInstance } from '../lib/axiosInstance';
 
 type AxiosType = {
@@ -20,6 +22,8 @@ export const useLogin = () => {
   const navigate = useNavigate();
   const { loginInstance } = axiosInstance();
   const setAuth = useSetRecoilState<boolean>(authState);
+  const setLoading = useSetRecoilState<boolean>(LoadingState);
+
   const localAuth = localStorage.getItem('auth');
   const localToken = localStorage.getItem('token');
   const localExp = localStorage.getItem('exp');
@@ -34,6 +38,7 @@ export const useLogin = () => {
 
   const login = useCallback(
     (email: string, pass: string) => {
+      setLoading(true);
       loginInstance
         .post<AxiosType>('login', { email, password: pass })
         .then((res) => {
@@ -43,6 +48,7 @@ export const useLogin = () => {
           localStorage.setItem('auth', JSON.stringify(true));
           localStorage.setItem('token', res.data.access_token);
           localStorage.setItem('exp', JSON.stringify(decodedToken.exp));
+          setLoading(false);
           navigate('memo');
           toast.success('ログインに成功しました');
         })
@@ -50,7 +56,7 @@ export const useLogin = () => {
           toast.error('ログインに失敗しました');
         });
     },
-    [loginInstance, navigate, setAuth]
+    [loginInstance, navigate, setAuth, setLoading]
   );
   return [login];
 };
