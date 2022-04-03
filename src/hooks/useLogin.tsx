@@ -1,5 +1,4 @@
 import jwtDecode from 'jwt-decode';
-import { loadavg } from 'os';
 import { useCallback, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';

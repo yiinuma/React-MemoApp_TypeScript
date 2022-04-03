@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 #submit {
-  @apply min-w-fit h-10 ml-2 px-4 py-2 rounded;
+  @apply ml-2 h-10 min-w-fit rounded px-4 py-2;
 }
 
 .submit-disabled {
@@ -14,7 +14,7 @@
 }
 
 .todo-item {
-  @apply mb-2 w-full bg-white rounded;
+  @apply mb-2 w-full rounded bg-white;
 }
 
 .todo-item[data-limit='false'] {
@@ -22,15 +22,15 @@
 }
 
 .todo-item.completed {
-  @apply opacity-60 bg-slate-200;
+  @apply bg-slate-200 opacity-60;
 }
 
 .todo-div {
-  @apply flex flex-col w-[100%] ml-auto mr-auto;
+  @apply ml-auto mr-auto flex w-[100%] flex-col;
 }
 
 .todo-todo {
-  @apply py-2 px-4  text-left break-words;
+  @apply break-words py-2  px-4 text-left;
 }
 
 .completed .todo-todo {
@@ -38,22 +38,22 @@
 }
 
 .todo-task {
-  @apply flex flex-row justify-between items-center w-full px-4 border-t border-slate-200 rounded;
+  @apply flex w-full flex-row items-center justify-between rounded border-t border-slate-200 px-4;
 }
 
 .todo-date {
-  @apply min-w-fit py-2 bg-transparent text-sm;
+  @apply min-w-fit bg-transparent py-2 text-sm;
 }
 
-.limit-over {
-  @apply ml-4 text-red-600 text-base;
+/* .limit-over {
+  @apply ml-4 text-base text-red-600;
 }
 
 .todo-item.completed .limit-over {
   @apply hidden;
-}
+} */
 
-.edit-btn {
+/* .edit-btn {
   @apply bg-blue-300 px-4 py-1;
 }
 
@@ -63,8 +63,8 @@
 
 .trash-btn {
   @apply ml-4 bg-lime-300 px-4 py-1;
-}
+} */
 
 .is-open#modal {
-  @apply opacity-100 visible;
+  @apply visible opacity-100;
 }
