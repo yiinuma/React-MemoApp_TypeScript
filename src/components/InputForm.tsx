@@ -8,7 +8,7 @@ export const InputForm: VFC = memo(() => {
   const [category, setCategory] = useState<string>('');
   const [description, setDescription] = useState<string>('');
   const [submitDisabled, setSubmitDisabled] = useState(true);
-  const { readMemo, createMemo } = useMemoCrud();
+  const { createMemo } = useMemoCrud();
 
   const getInputDay = () => {
     const inputDay = dayjs().format('YYYY/MM/DD');
@@ -19,7 +19,6 @@ export const InputForm: VFC = memo(() => {
     e.preventDefault();
     const date = getInputDay();
     const complete = false;
-    readMemo();
     createMemo(title, category, description, date, complete);
     setTitle('');
     setCategory('');
