@@ -48,7 +48,7 @@ export const TodoList: VFC = memo(() => {
           <div className="ml-auto mr-auto flex w-[100%] flex-col">
             <div className="flex items-center">
               <p className={`break-words py-1 px-4 text-left font-semibold ${list.mark_div && 'line-through'} `}>{list.title}</p>
-              <span className="rounded-full bg-slate-100 px-4 py-1 text-sm">{list.category}</span>
+              {list.category !== '' && <span className="rounded-full bg-slate-100 px-4 py-1 text-sm">{list.category}</span>}
             </div>
             <p className={`break-words py-1 px-4 text-left ${list.mark_div && 'line-through'} `}>{list.description}</p>
             <div className="flex w-full flex-row items-center justify-end rounded border-t border-slate-200 px-4">

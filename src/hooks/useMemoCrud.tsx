@@ -19,9 +19,9 @@ export const useMemoCrud = () => {
     loginInstance
       .get<MemoType[]>('/memos', {})
       .then((res) => {
+        setLoading(false);
         toast.success('一覧を取得しました');
         setMemos(res.data);
-        setLoading(false);
       })
       .catch(() => {
         toast.success('一覧取得に失敗しました');
@@ -36,8 +36,8 @@ export const useMemoCrud = () => {
       loginInstance
         .post<MemoType[]>('/memo', { title, category, description, date, mark_div: Number(complete) })
         .then(() => {
-          toast.success('新規登録しました');
           setLoading(false);
+          toast.success('新規登録しました');
           readMemo();
         })
         .catch(() => {
@@ -70,9 +70,11 @@ export const useMemoCrud = () => {
   // 何でもメモ削除
   const deleteMemo = useCallback(
     (id: string) => {
+      setLoading(true);
       loginInstance
         .delete(`/memo/${id}`)
         .then(() => {
+          setLoading(false);
           toast.success('削除しました');
           readMemo();
         })
