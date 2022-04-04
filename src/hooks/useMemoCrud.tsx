@@ -55,7 +55,7 @@ export const useMemoCrud = () => {
         .put(`/memo/${id}`, { title, category, description, date, mark_div: Number(complete) })
         .then((res) => {
           toast.success('更新しました');
-          console.log(res);
+          console.log('upDate', res);
         })
         .catch((e: AxiosError<{ error: string }>) => {
           toast.success('更新に失敗しました');
@@ -69,7 +69,7 @@ export const useMemoCrud = () => {
   const deleteMemo = useCallback(
     (id: string) => {
       loginInstance
-        .delete(`/memo${id}`)
+        .delete(`/memo/${id}`)
         .then((res) => {
           toast.success('削除しました');
           console.log(res);

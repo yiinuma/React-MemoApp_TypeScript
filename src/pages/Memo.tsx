@@ -19,7 +19,7 @@ export const Memo: VFC = memo(() => (
           <InputForm />
           <TodoList />
         </div>
-        {/* <Modal todoList={todoList} putTodoList={putTodoList} /> */}
+        <Modal />
       </div>
     </ModalProvider>
   </RecoilRoot>
