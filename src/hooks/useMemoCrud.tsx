@@ -13,40 +13,36 @@ export const useMemoCrud = () => {
   const setMemos = useSetRecoilState<MemoType[]>(memoState);
   const setLoading = useSetRecoilState<boolean>(LoadingState);
 
-  // 何でもメモ新規登録
-  const createMemo = useCallback(
-    (title: string, category: string, description: string, date: string, complete: boolean) => {
-      loginInstance
-        .post<MemoType[]>('/memo', { title, category, description, date, mark_div: Number(complete) })
-        .then((res) => {
-          toast.success('新規登録しました');
-          console.log(res);
-        })
-        .catch((e: AxiosError<{ error: string }>) => {
-          toast.success('新規登録に失敗しました');
-          console.log(e.message);
-        });
-    },
-    [loginInstance]
-  );
-
   // 何でもメモ一覧取得
   const readMemo = useCallback(() => {
     setLoading(true);
     loginInstance
       .get<MemoType[]>('/memos', {})
       .then((res) => {
-        const resData = res.data;
-        console.log(resData);
-        setMemos(resData);
-        setLoading(false);
         toast.success('一覧を取得しました');
+        setMemos(res.data);
+        setLoading(false);
       })
-      .catch((e: AxiosError<{ error: string }>) => {
+      .catch(() => {
         toast.success('一覧取得に失敗しました');
-        console.log(e.message);
       });
   }, [loginInstance, setLoading, setMemos]);
+
+  // 何でもメモ新規登録
+  const createMemo = useCallback(
+    (title: string, category: string, description: string, date: string, complete: boolean) => {
+      loginInstance
+        .post<MemoType[]>('/memo', { title, category, description, date, mark_div: Number(complete) })
+        .then(() => {
+          toast.success('新規登録しました');
+          readMemo();
+        })
+        .catch(() => {
+          toast.success('新規登録に失敗しました');
+        });
+    },
+    [loginInstance, readMemo]
+  );
 
   // 何でもメモ更新
   const upDateMemo = useCallback(
@@ -56,13 +52,14 @@ export const useMemoCrud = () => {
         .then((res) => {
           toast.success('更新しました');
           console.log('upDate', res);
+          readMemo();
         })
         .catch((e: AxiosError<{ error: string }>) => {
           toast.success('更新に失敗しました');
           console.log(e.message);
         });
     },
-    [loginInstance]
+    [loginInstance, readMemo]
   );
 
   // 何でもメモ削除
@@ -72,6 +69,7 @@ export const useMemoCrud = () => {
         .delete(`/memo/${id}`)
         .then((res) => {
           toast.success('削除しました');
+          readMemo();
           console.log(res);
         })
         .catch((e: AxiosError<{ error: string }>) => {
@@ -79,7 +77,7 @@ export const useMemoCrud = () => {
           console.log(e.message);
         });
     },
-    [loginInstance]
+    [loginInstance, readMemo]
   );
 
   return { createMemo, readMemo, upDateMemo, deleteMemo };

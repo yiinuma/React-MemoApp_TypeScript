@@ -12,7 +12,7 @@ import { Logout } from '../components/Logout';
 export const Memo: VFC = memo(() => (
   <RecoilRoot>
     <ModalProvider>
-      <div className="min-h-screen bg-gradient-to-l from-green-500 to-green-700 px-4 pt-4">
+      <div className="min-h-screen bg-gradient-to-l from-slate-500 to-slate-700 px-4 pt-4">
         <Logout />
         <Title />
         <div className="mt-8 ml-auto mr-auto flex w-[80%] flex-col justify-center">
