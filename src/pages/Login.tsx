@@ -20,12 +20,11 @@ export const Login: VFC = () => {
     if (localExp >= new Date().getTime() / 1000 && localAuth) {
       const exp = new Date(localExp * 1000);
       setAuth(true);
-      console.log('セッション有効期限', exp);
 
       if (auth) {
-        console.log('auth', auth);
         navigate('memo');
         toast.success('ログインに成功しました');
+        console.log('セッション有効期限', exp);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

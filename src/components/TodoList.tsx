@@ -9,13 +9,10 @@ import { LoadingState } from './store/loadingState';
 
 export const TodoList: VFC = memo(() => {
   const { readMemo, upDateMemo, deleteMemo } = useMemoCrud();
-
   const memos = useRecoilValue(memoState);
   const { modal, setModal } = useContext(ModalContext);
   const setEditIndex = useSetRecoilState(editIndexState);
   const Loading = useRecoilValue<boolean>(LoadingState);
-
-  console.log(memos);
 
   useEffect(() => {
     readMemo();

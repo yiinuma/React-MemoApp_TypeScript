@@ -1,5 +1,4 @@
 import { memo, useContext, useEffect, useState, VFC } from 'react';
-import toast from 'react-hot-toast';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useMemoCrud } from '../hooks/useMemoCrud';
 import { ModalContext } from './provider/ModalProvider';
@@ -16,7 +15,6 @@ export const Modal: VFC = memo(() => {
   const { modal, setModal } = useContext(ModalContext);
   const [editIndex, setEditIndex] = useRecoilState(editIndexState);
 
-  console.log('Modal memoState,id', memos, editIndex);
   useEffect(() => {
     if (editIndex !== null) {
       setEditTitle(memos[editIndex].title);
@@ -37,8 +35,6 @@ export const Modal: VFC = memo(() => {
     e.preventDefault();
     if (editIndex === null) return;
     upDateMemo(memos[editIndex].id, editTitle, editCategory, editDescription, memos[editIndex].date, Boolean(memos[editIndex].mark_div));
-
-    toast.success(`Todoを変更しました`);
     editClear();
   };
 

@@ -26,40 +26,45 @@ export const useMemoCrud = () => {
       .catch(() => {
         toast.success('一覧取得に失敗しました');
       });
-  }, [loginInstance, setLoading, setMemos]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // 何でもメモ新規登録
   const createMemo = useCallback(
     (title: string, category: string, description: string, date: string, complete: boolean) => {
+      setLoading(true);
       loginInstance
         .post<MemoType[]>('/memo', { title, category, description, date, mark_div: Number(complete) })
         .then(() => {
           toast.success('新規登録しました');
+          setLoading(false);
           readMemo();
         })
         .catch(() => {
           toast.success('新規登録に失敗しました');
         });
     },
-    [loginInstance, readMemo]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
   );
 
   // 何でもメモ更新
   const upDateMemo = useCallback(
     (id: string, title: string, category: string, description: string, date: string, complete: boolean) => {
+      setLoading(true);
       loginInstance
         .put(`/memo/${id}`, { title, category, description, date, mark_div: Number(complete) })
-        .then((res) => {
+        .then(() => {
+          setLoading(false);
           toast.success('更新しました');
-          console.log('upDate', res);
           readMemo();
         })
-        .catch((e: AxiosError<{ error: string }>) => {
+        .catch(() => {
           toast.success('更新に失敗しました');
-          console.log(e.message);
         });
     },
-    [loginInstance, readMemo]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
   );
 
   // 何でもメモ削除
@@ -67,17 +72,17 @@ export const useMemoCrud = () => {
     (id: string) => {
       loginInstance
         .delete(`/memo/${id}`)
-        .then((res) => {
+        .then(() => {
           toast.success('削除しました');
           readMemo();
-          console.log(res);
         })
         .catch((e: AxiosError<{ error: string }>) => {
           toast.success('削除に失敗しました');
           console.log(e.message);
         });
     },
-    [loginInstance, readMemo]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
   );
 
   return { createMemo, readMemo, upDateMemo, deleteMemo };
