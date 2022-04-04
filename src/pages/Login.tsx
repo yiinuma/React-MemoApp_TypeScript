@@ -28,7 +28,8 @@ export const Login: VFC = () => {
         toast.success('ログインに成功しました');
       }
     }
-  }, [auth, localAuth, localExp, navigate, setAuth]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [auth]);
 
   const handleEmailChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setEMail(e.target.value);
