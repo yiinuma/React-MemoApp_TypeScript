@@ -53,17 +53,21 @@ export const TodoList: VFC = memo(() => {
             <p className={`break-words py-1 px-4 text-left ${list.mark_div && 'line-through'} `}>{list.description}</p>
             <div className="flex w-full flex-row items-center justify-end rounded border-t border-slate-200 px-4">
               <div className="mt-1">
-                <button onClick={() => handleEdit(index)} className="bg-blue-300 px-4 py-1">
+                <button onClick={() => handleEdit(index)} className="bg-blue-300 px-4 py-1" disabled={Loading}>
                   <i className="pointer-events-none">
                     <FaEdit />
                   </i>
                 </button>
-                <button onClick={() => handleComplete(list.id, list.title, list.category, list.description, list.date, Boolean(list.mark_div))} className="ml-4 bg-amber-300 px-4 py-1">
+                <button
+                  onClick={() => handleComplete(list.id, list.title, list.category, list.description, list.date, Boolean(list.mark_div))}
+                  className="ml-4 bg-amber-300 px-4 py-1"
+                  disabled={Loading}
+                >
                   <i className="pointer-events-none">
                     <FaCheck />
                   </i>
                 </button>
-                <button onClick={() => handleDelete(list.id)} className="ml-4 bg-lime-300 px-4 py-1">
+                <button onClick={() => handleDelete(list.id)} className="ml-4 bg-lime-300 px-4 py-1" disabled={Loading}>
                   <i className="pointer-events-none">
                     <FaTrashAlt />
                   </i>

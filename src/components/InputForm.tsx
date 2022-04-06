@@ -15,7 +15,7 @@ export const InputForm: VFC = memo(() => {
     return inputDay;
   };
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     const date = getInputDay();
     const complete = false;
@@ -27,7 +27,7 @@ export const InputForm: VFC = memo(() => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-row items-end justify-center gap-2 text-white">
+    <form className="flex flex-row items-end justify-center gap-2 text-white">
       <div className="w-5/12">
         <label htmlFor="title">
           Title
@@ -77,7 +77,9 @@ export const InputForm: VFC = memo(() => {
         </label>
       </div>
 
-      <input id="submit" type="submit" className={submitDisabled ? `submit-disabled` : `submit-enabled`} value="Submit" />
+      <button id="submit" type="button" className={submitDisabled ? `submit-disabled` : `submit-enabled`} onClick={handleSubmit}>
+        Submit
+      </button>
     </form>
   );
 });
