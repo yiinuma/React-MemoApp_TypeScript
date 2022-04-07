@@ -77,7 +77,7 @@ export const InputForm: VFC = memo(() => {
         </label>
       </div>
 
-      <button id="submit" type="button" className={submitDisabled ? `submit-disabled` : `submit-enabled`} onClick={handleSubmit}>
+      <button id="submit" type="button" className={title === '' || submitDisabled ? `submit-disabled` : `submit-enabled`} onClick={handleSubmit} disabled={title === ''}>
         Submit
       </button>
     </form>
