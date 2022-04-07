@@ -2,6 +2,8 @@ import { memo, useState, VFC } from 'react';
 import dayjs from 'dayjs';
 
 import { useMemoCrud } from '../hooks/useMemoCrud';
+import { FormInput } from './input/FormInput';
+import { InputField } from './InputField';
 
 export const InputForm: VFC = memo(() => {
   const [title, setTitle] = useState<string>('');
@@ -29,52 +31,49 @@ export const InputForm: VFC = memo(() => {
   return (
     <form className="flex flex-row items-end justify-center gap-2 text-white">
       <div className="w-5/12">
-        <label htmlFor="title">
-          Title
+        <InputField htmlFor="title" label="Title">
           <br />
-          <input
+          <FormInput
             id="title"
-            type="text"
-            className="text-m placeholder-blueGray-300 h-10 min-h-[40px] w-full rounded border-0 px-2 text-gray-600 shadow outline-none focus:outline-none focus:ring"
             required
+            type="text"
             value={title}
             onChange={(e) => {
               setTitle(e.target.value);
               setSubmitDisabled(false);
             }}
           />
-        </label>
+        </InputField>
       </div>
       <div className="w-2/12">
-        <label htmlFor="title">
-          Category
+        <InputField htmlFor="category" label="Category">
           <br />
-          <input
+          <FormInput
+            id="category"
+            required={false}
             type="text"
-            className="text-m placeholder-blueGray-300 h-10 min-h-[40px] w-full rounded border-0 px-2 text-gray-600 shadow outline-none focus:outline-none focus:ring"
             value={category}
             onChange={(e) => {
               setCategory(e.target.value);
               setSubmitDisabled(false);
             }}
           />
-        </label>
+        </InputField>
       </div>
       <div className="w-5/12">
-        <label htmlFor="title">
-          Description
+        <InputField htmlFor="description" label="Description">
           <br />
-          <input
+          <FormInput
+            id="description"
+            required={false}
             type="text"
-            placeholder=""
-            className="ttext-m placeholder-blueGray-300 h-10 min-h-[40px] w-full rounded border-0 px-2 text-gray-600 shadow outline-none focus:outline-none focus:ring"
             value={description}
             onChange={(e) => {
               setDescription(e.target.value);
               setSubmitDisabled(false);
             }}
           />
-        </label>
+        </InputField>
       </div>
 
       <button id="submit" type="button" className={title === '' || submitDisabled ? `submit-disabled` : `submit-enabled`} onClick={handleSubmit} disabled={title === ''}>
