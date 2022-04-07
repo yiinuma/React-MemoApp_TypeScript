@@ -13,7 +13,7 @@ export const Login: VFC = () => {
   const localExp = Number(localStorage.getItem('exp'));
   const localAuth = localStorage.getItem('auth');
   const [auth, setAuth] = useRecoilState<boolean>(authState);
-  const Loading = useRecoilValue<boolean>(LoadingState);
+  const loading = useRecoilValue<boolean>(LoadingState);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export const Login: VFC = () => {
   return (
     <figure className="flex h-screen bg-gray-100">
       <div className="border-primaryBorder relative m-auto w-full max-w-md rounded-lg border bg-white py-10 px-1 shadow-lg">
-        {Loading && (
+        {loading && (
           <>
             <div className="absolute top-[40%] left-[50%] z-20 translate-x-[-50%]">
               <div className="h-12 w-12 animate-spin rounded-xl bg-blue-300" />
