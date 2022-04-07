@@ -10,13 +10,13 @@ export const Login: VFC = () => {
   const [email, setEMail] = useState('');
   const [pass, setPass] = useState('');
   const [login] = useLogin();
-  const localExp = Number(localStorage.getItem('exp'));
-  const localAuth = localStorage.getItem('auth');
   const [auth, setAuth] = useRecoilState<boolean>(authState);
   const loading = useRecoilValue<boolean>(LoadingState);
   const navigate = useNavigate();
 
   useEffect(() => {
+    const localExp = Number(localStorage.getItem('exp'));
+    const localAuth = localStorage.getItem('auth');
     if (localExp >= new Date().getTime() / 1000 && localAuth) {
       const exp = new Date(localExp * 1000);
       setAuth(true);

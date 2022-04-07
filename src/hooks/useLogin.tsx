@@ -23,17 +23,16 @@ export const useLogin = () => {
   const setAuth = useSetRecoilState<boolean>(authState);
   const setLoading = useSetRecoilState<boolean>(LoadingState);
 
-  const localAuth = localStorage.getItem('auth');
-  const localToken = localStorage.getItem('token');
-  const localExp = localStorage.getItem('exp');
-
   useEffect(() => {
+    const localAuth = localStorage.getItem('auth');
+    const localToken = localStorage.getItem('token');
+    const localExp = localStorage.getItem('exp');
     if (!localAuth || !localToken || !localExp) {
       localStorage.setItem('auth', JSON.stringify(false));
       localStorage.setItem('token', JSON.stringify(''));
       localStorage.setItem('exp', JSON.stringify(''));
     }
-  }, [localAuth, localExp, localToken]);
+  }, []);
 
   const login = useCallback(
     (email: string, pass: string) => {
