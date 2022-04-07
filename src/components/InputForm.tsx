@@ -35,7 +35,7 @@ export const InputForm: VFC = memo(() => {
           <input
             id="title"
             type="text"
-            className="text-m placeholder-blueGray-300 min-h-[40px] w-full rounded border-0 px-2 text-gray-600 shadow outline-none focus:outline-none focus:ring"
+            className="text-m placeholder-blueGray-300 h-10 min-h-[40px] w-full rounded border-0 px-2 text-gray-600 shadow outline-none focus:outline-none focus:ring"
             required
             value={title}
             onChange={(e) => {
@@ -51,7 +51,7 @@ export const InputForm: VFC = memo(() => {
           <br />
           <input
             type="text"
-            className="text-m placeholder-blueGray-300 h-10 w-full rounded border-0 bg-white px-2 text-gray-600 shadow outline-none focus:outline-none focus:ring"
+            className="text-m placeholder-blueGray-300 h-10 min-h-[40px] w-full rounded border-0 px-2 text-gray-600 shadow outline-none focus:outline-none focus:ring"
             value={category}
             onChange={(e) => {
               setCategory(e.target.value);
@@ -67,7 +67,7 @@ export const InputForm: VFC = memo(() => {
           <input
             type="text"
             placeholder=""
-            className="text-m placeholder-blueGray-300 h-10 w-full rounded border-0 bg-white px-2 text-gray-600 shadow outline-none focus:outline-none focus:ring"
+            className="ttext-m placeholder-blueGray-300 h-10 min-h-[40px] w-full rounded border-0 px-2 text-gray-600 shadow outline-none focus:outline-none focus:ring"
             value={description}
             onChange={(e) => {
               setDescription(e.target.value);

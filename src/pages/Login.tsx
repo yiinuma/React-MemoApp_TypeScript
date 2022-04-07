@@ -1,7 +1,10 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import { ChangeEventHandler, useEffect, useState, VFC } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import { LoginInput } from '../components/input/LoginInput';
+import { InputField } from '../components/InputField';
 import { authState } from '../components/store/authState';
 import { LoadingState } from '../components/store/loadingState';
 import { useLogin } from '../hooks/useLogin';
@@ -62,30 +65,12 @@ export const Login: VFC = () => {
               login(email, pass);
             }}
           >
-            <label htmlFor="email" className="text-left">
-              Email:
-              <input
-                id="email"
-                required
-                type="mail"
-                value={email}
-                onChange={handleEmailChange}
-                placeholder="Email Address"
-                className="text-primary mb-4 w-full rounded-md border p-2 text-sm outline-none transition duration-150 ease-in-out"
-              />
-            </label>
-            <label htmlFor="password">
-              Password:
-              <input
-                id="password"
-                required
-                type="password"
-                value={pass}
-                onChange={handlePassChange}
-                placeholder="Password"
-                className="text-primary mb-4 w-full rounded-md border p-2 text-sm outline-none transition duration-150 ease-in-out"
-              />
-            </label>
+            <InputField htmlFor="email" label="Email:">
+              <LoginInput id="email" type="mail" value={email} onChange={handleEmailChange} placeHolder="Email Address" />
+            </InputField>
+            <InputField htmlFor="password" label=" Password:">
+              <LoginInput id="password" type="password" value={pass} onChange={handlePassChange} placeHolder="Password" />
+            </InputField>
             <div className="mt-4 flex items-center justify-center">
               <button className="text-md border-blue rounded border bg-blue-700 py-2 px-4 text-white hover:bg-blue-500 focus:border-black focus:outline-none" value="Login">
                 Login
