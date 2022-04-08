@@ -14,7 +14,7 @@ export const Modal: VFC = memo(() => {
   const [editDescription, setEditDescription] = useState('');
   const { modal, setModal } = useContext(ModalContext);
   const [editIndex, setEditIndex] = useRecoilState(editIndexState);
-
+  console.log(modal);
   useEffect(() => {
     if (editIndex !== null) {
       setEditTitle(memos[editIndex].title);
@@ -41,8 +41,8 @@ export const Modal: VFC = memo(() => {
   return (
     <div
       id="modal"
-      className={`invisible fixed top-0 left-0 flex h-screen w-screen items-center justify-center bg-slate-500 bg-opacity-75 antialiased opacity-0 transition duration-300 ease-in-out ${
-        modal ? `is-open` : ''
+      className={`fixed top-0 left-0 flex h-screen w-screen items-center justify-center bg-slate-500 bg-opacity-75 antialiased opacity-0 transition duration-300 ease-in-out ${
+        modal ? ' visible opacity-100' : 'invisible'
       }`}
     >
       <input onClick={editClear} className="modal-bg absolute top-0 left-0 z-10 h-full w-full opacity-0" />
