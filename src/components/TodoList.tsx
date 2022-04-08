@@ -44,7 +44,7 @@ export const TodoList: VFC = memo(() => {
         </>
       )}
       {memos.map((list, index) => (
-        <li className={`mb-2 w-full rounded bg-white ${list.mark_div && 'bg-slate-200 opacity-60'}`} key={list.id}>
+        <li className={`mb-2 w-full rounded ${list.mark_div ? ' bg-slate-200 opacity-60' : ' bg-white'}`} key={list.id}>
           <div className="ml-auto mr-auto flex w-[100%] flex-col">
             <div className="flex items-center">
               <p className={`break-words py-1 px-4 text-left font-semibold ${list.mark_div && 'line-through'} `}>{list.title}</p>
