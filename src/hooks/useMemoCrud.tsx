@@ -3,8 +3,8 @@ import { AxiosError } from 'axios';
 import { useCallback } from 'react';
 import toast from 'react-hot-toast';
 import { useSetRecoilState } from 'recoil';
-import { LoadingState } from '../components/store/loadingState';
-import { memoState } from '../components/store/memoState';
+import { LoadingState } from '../store/loadingState';
+import { memoState } from '../store/memoState';
 import { axiosInstance } from '../lib/axiosInstance';
 import { MemoType } from '../types/memo';
 

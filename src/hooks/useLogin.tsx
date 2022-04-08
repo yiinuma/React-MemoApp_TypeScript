@@ -3,8 +3,8 @@ import { useCallback, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { authState } from '../components/store/authState';
-import { LoadingState } from '../components/store/loadingState';
+import { authState } from '../store/authState';
+import { LoadingState } from '../store/loadingState';
 import { axiosInstance } from '../lib/axiosInstance';
 
 type AxiosType = {

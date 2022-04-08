@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { LoginInput } from '../components/input/LoginInput';
 import { InputField } from '../components/InputField';
-import { authState } from '../components/store/authState';
-import { LoadingState } from '../components/store/loadingState';
+import { authState } from '../store/authState';
+import { LoadingState } from '../store/loadingState';
 import { useLogin } from '../hooks/useLogin';
 
 export const Login: VFC = () => {

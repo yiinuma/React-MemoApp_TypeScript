@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { PrimaryButton } from './button/PrimaryButton';
-import { authState } from './store/authState';
+import { authState } from '../store/authState';
 
 export const Logout: VFC = () => {
   const setAuth = useSetRecoilState<boolean>(authState);

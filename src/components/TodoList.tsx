@@ -2,10 +2,10 @@ import { memo, useContext, useEffect, VFC } from 'react';
 import { FaEdit, FaCheck, FaTrashAlt } from 'react-icons/fa';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { ModalContext } from './provider/ModalProvider';
-import { editIndexState } from './store/editIndexState';
-import { memoState } from './store/memoState';
+import { editIndexState } from '../store/editIndexState';
+import { memoState } from '../store/memoState';
 import { useMemoCrud } from '../hooks/useMemoCrud';
-import { LoadingState } from './store/loadingState';
+import { LoadingState } from '../store/loadingState';
 
 export const TodoList: VFC = memo(() => {
   const { readMemo, upDateMemo, deleteMemo } = useMemoCrud();

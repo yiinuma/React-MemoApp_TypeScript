@@ -2,8 +2,8 @@ import { memo, useContext, useEffect, useState, VFC } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useMemoCrud } from '../hooks/useMemoCrud';
 import { ModalContext } from './provider/ModalProvider';
-import { editIndexState } from './store/editIndexState';
-import { memoState } from './store/memoState';
+import { memoState } from '../store/memoState';
+import { editIndexState } from '../store/editIndexState';
 
 export const Modal: VFC = memo(() => {
   const memos = useRecoilValue(memoState);
