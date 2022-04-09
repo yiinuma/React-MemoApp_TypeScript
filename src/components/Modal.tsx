@@ -1,9 +1,11 @@
-import { memo, useContext, useEffect, useState, VFC } from 'react';
+import { memo, useEffect, useState, VFC } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useMemoCrud } from '../hooks/useMemoCrud';
-import { ModalContext } from './provider/ModalProvider';
-import { editIndexState } from './store/editIndexState';
-import { memoState } from './store/memoState';
+import { memoState } from '../store/memoState';
+import { editIndexState } from '../store/editIndexState';
+import { modalState } from '../store/modalState';
+import { ModalInput } from './input/Modalnput';
+import { InputField } from './InputField';
 
 export const Modal: VFC = memo(() => {
   const memos = useRecoilValue(memoState);
@@ -12,9 +14,9 @@ export const Modal: VFC = memo(() => {
   const [editTitle, setEditTitle] = useState('');
   const [editCategory, setEditCategory] = useState('');
   const [editDescription, setEditDescription] = useState('');
-  const { modal, setModal } = useContext(ModalContext);
+  const [modal, setModal] = useRecoilState(modalState);
   const [editIndex, setEditIndex] = useRecoilState(editIndexState);
-
+  console.log(modal);
   useEffect(() => {
     if (editIndex !== null) {
       setEditTitle(memos[editIndex].title);
@@ -41,8 +43,8 @@ export const Modal: VFC = memo(() => {
   return (
     <div
       id="modal"
-      className={`invisible fixed top-0 left-0 flex h-screen w-screen items-center justify-center bg-slate-500 bg-opacity-75 antialiased opacity-0 transition duration-300 ease-in-out ${
-        modal ? `is-open` : ''
+      className={`fixed top-0 left-0 flex h-screen w-screen items-center justify-center bg-slate-500 bg-opacity-75 antialiased opacity-0 transition duration-300 ease-in-out ${
+        modal ? ' visible opacity-100' : 'invisible'
       }`}
     >
       <input onClick={editClear} className="modal-bg absolute top-0 left-0 z-10 h-full w-full opacity-0" />
@@ -58,46 +60,43 @@ export const Modal: VFC = memo(() => {
           </button>
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="flex flex-col">
-            <div className="flex flex-col bg-gray-50 px-6 pt-4">
-              <div className="mb-2 font-semibold text-gray-700">
-                Title
-                <textarea
-                  value={editTitle}
-                  onChange={(e) => {
-                    setEditTitle(e.target.value);
-                  }}
-                  className="text-m placeholder-blueGray-300 w-full rounded border-0 px-2 text-gray-600 shadow outline-none focus:outline-none focus:ring"
-                  required
-                />
-              </div>
-            </div>
-            <div className="flex flex-col bg-gray-50 px-6 pt-4">
-              <div className="mb-2 font-semibold text-gray-700">
-                Category
-                <input
-                  value={editCategory}
-                  onChange={(e) => {
-                    setEditCategory(e.target.value);
-                  }}
-                  className="text-m placeholder-blueGray-300 w-full rounded border-0 px-2 text-gray-600 shadow outline-none focus:outline-none focus:ring"
-                  required
-                />
-              </div>
-            </div>
-            <div className="flex flex-col bg-gray-50 px-6 pt-4">
-              <div className="mb-2 font-semibold text-gray-700">
-                Description
-                <textarea
-                  value={editDescription}
-                  onChange={(e) => {
-                    setEditDescription(e.target.value);
-                  }}
-                  className="text-m placeholder-blueGray-300 w-full rounded border-0 px-2 text-gray-600 shadow outline-none focus:outline-none focus:ring"
-                  required
-                />
-              </div>
-            </div>
+          <div className="flex flex-col space-y-4 bg-gray-50 px-10 py-6">
+            <InputField htmlFor="title" label="Title">
+              <ModalInput
+                CustomTag="textarea"
+                id="title"
+                required
+                type="text"
+                value={editTitle}
+                onChange={(e) => {
+                  setEditTitle(e.target.value);
+                }}
+              />
+            </InputField>
+            <InputField htmlFor="category" label="Category">
+              <ModalInput
+                CustomTag="input"
+                id="category"
+                required={false}
+                type="text"
+                value={editCategory}
+                onChange={(e) => {
+                  setEditCategory(e.target.value);
+                }}
+              />
+            </InputField>
+            <InputField htmlFor="description" label="Description">
+              <ModalInput
+                CustomTag="textarea"
+                id="description"
+                required={false}
+                type="text"
+                value={editDescription}
+                onChange={(e) => {
+                  setEditDescription(e.target.value);
+                }}
+              />
+            </InputField>
           </div>
           <div className="flex flex-row items-center justify-between rounded-bl-lg rounded-br-lg border-t border-gray-200 bg-white p-5">
             <input

@@ -1,26 +1,25 @@
 import { memo, VFC } from 'react';
 import { RecoilRoot } from 'recoil';
+import { LogoutButton } from '../components/button/LogoutButton';
 
 import { InputForm } from '../components/InputForm';
+import { Layout } from '../components/Layout/Layout';
+import { MainLayout } from '../components/Layout/MainLayout';
 import { Modal } from '../components/Modal';
 import { Title } from '../components/Title';
 import { TodoList } from '../components/TodoList';
 import '../style.css';
-import { ModalProvider } from '../components/provider/ModalProvider';
-import { Logout } from '../components/Logout';
 
 export const Memo: VFC = memo(() => (
   <RecoilRoot>
-    <ModalProvider>
-      <div className="min-h-screen bg-gradient-to-l from-slate-500 to-slate-700 px-4 pt-4">
-        <Logout />
+    <Layout>
+      <LogoutButton />
+      <MainLayout>
         <Title />
-        <div className="mt-8 ml-auto mr-auto flex w-[80%] flex-col justify-center">
-          <InputForm />
-          <TodoList />
-        </div>
+        <InputForm />
+        <TodoList />
         <Modal />
-      </div>
-    </ModalProvider>
+      </MainLayout>
+    </Layout>
   </RecoilRoot>
 ));

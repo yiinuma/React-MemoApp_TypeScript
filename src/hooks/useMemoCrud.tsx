@@ -3,8 +3,8 @@ import { AxiosError } from 'axios';
 import { useCallback } from 'react';
 import toast from 'react-hot-toast';
 import { useSetRecoilState } from 'recoil';
-import { LoadingState } from '../components/store/loadingState';
-import { memoState } from '../components/store/memoState';
+import { LoadingState } from '../store/loadingState';
+import { memoState } from '../store/memoState';
 import { axiosInstance } from '../lib/axiosInstance';
 import { MemoType } from '../types/memo';
 
@@ -19,13 +19,13 @@ export const useMemoCrud = () => {
     loginInstance
       .get<MemoType[]>('/memos', {})
       .then((res) => {
-        setLoading(false);
         toast.success('一覧を取得しました');
         setMemos(res.data);
       })
       .catch(() => {
         toast.success('一覧取得に失敗しました');
-      });
+      })
+      .finally(() => setLoading(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -36,13 +36,13 @@ export const useMemoCrud = () => {
       loginInstance
         .post<MemoType[]>('/memo', { title, category, description, date, mark_div: Number(complete) })
         .then(() => {
-          setLoading(false);
           toast.success('新規登録しました');
           readMemo();
         })
         .catch(() => {
           toast.success('新規登録に失敗しました');
-        });
+        })
+        .finally(() => setLoading(false));
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
@@ -55,13 +55,13 @@ export const useMemoCrud = () => {
       loginInstance
         .put(`/memo/${id}`, { title, category, description, date, mark_div: Number(complete) })
         .then(() => {
-          setLoading(false);
           toast.success('更新しました');
           readMemo();
         })
         .catch(() => {
           toast.success('更新に失敗しました');
-        });
+        })
+        .finally(() => setLoading(false));
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
@@ -74,14 +74,14 @@ export const useMemoCrud = () => {
       loginInstance
         .delete(`/memo/${id}`)
         .then(() => {
-          setLoading(false);
           toast.success('削除しました');
           readMemo();
         })
         .catch((e: AxiosError<{ error: string }>) => {
           toast.success('削除に失敗しました');
           console.log(e.message);
-        });
+        })
+        .finally(() => setLoading(false));
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []

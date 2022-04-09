@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { authState } from '../components/store/authState';
+import { authState } from '../store/authState';
 
 export const AuthenticatedGuard: FC = ({ children }) => {
   const auth = useRecoilValue(authState);

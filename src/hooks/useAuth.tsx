@@ -3,8 +3,8 @@ import { useCallback, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { authState } from '../components/store/authState';
-import { LoadingState } from '../components/store/loadingState';
+import { authState } from '../store/authState';
+import { LoadingState } from '../store/loadingState';
 import { axiosInstance } from '../lib/axiosInstance';
 
 type AxiosType = {
@@ -17,7 +17,7 @@ type AxiosExpType = {
   exp: number;
 };
 
-export const useLogin = () => {
+export const useAuth = () => {
   const navigate = useNavigate();
   const { loginInstance } = axiosInstance();
   const setAuth = useSetRecoilState<boolean>(authState);
@@ -56,5 +56,16 @@ export const useLogin = () => {
     },
     [loginInstance, navigate, setAuth, setLoading]
   );
-  return [login];
+
+  const logout = useCallback(() => {
+    setAuth(false);
+    localStorage.removeItem('token');
+    localStorage.removeItem('exp');
+    localStorage.setItem('auth', JSON.stringify(false));
+    navigate('/');
+    toast.success('ログインアウトしました');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setAuth]);
+
+  return { login, logout };
 };

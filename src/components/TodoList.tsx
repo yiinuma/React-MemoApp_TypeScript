@@ -1,16 +1,16 @@
-import { memo, useContext, useEffect, VFC } from 'react';
+import { memo, useEffect, VFC } from 'react';
 import { FaEdit, FaCheck, FaTrashAlt } from 'react-icons/fa';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { ModalContext } from './provider/ModalProvider';
-import { editIndexState } from './store/editIndexState';
-import { memoState } from './store/memoState';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { editIndexState } from '../store/editIndexState';
+import { memoState } from '../store/memoState';
 import { useMemoCrud } from '../hooks/useMemoCrud';
-import { LoadingState } from './store/loadingState';
+import { LoadingState } from '../store/loadingState';
+import { modalState } from '../store/modalState';
 
 export const TodoList: VFC = memo(() => {
   const { readMemo, upDateMemo, deleteMemo } = useMemoCrud();
   const memos = useRecoilValue(memoState);
-  const { modal, setModal } = useContext(ModalContext);
+  const [modal, setModal] = useRecoilState(modalState);
   const setEditIndex = useSetRecoilState(editIndexState);
   const Loading = useRecoilValue<boolean>(LoadingState);
 
@@ -44,7 +44,7 @@ export const TodoList: VFC = memo(() => {
         </>
       )}
       {memos.map((list, index) => (
-        <li className={`mb-2 w-full rounded bg-white ${list.mark_div && 'bg-slate-200 opacity-60'}`} key={list.id}>
+        <li className={`mb-2 w-full rounded ${list.mark_div ? ' bg-slate-200 opacity-60' : ' bg-white'}`} key={list.id}>
           <div className="ml-auto mr-auto flex w-[100%] flex-col">
             <div className="flex items-center">
               <p className={`break-words py-1 px-4 text-left font-semibold ${list.mark_div && 'line-through'} `}>{list.title}</p>

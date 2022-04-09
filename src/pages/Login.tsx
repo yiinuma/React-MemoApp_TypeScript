@@ -5,14 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { LoginInput } from '../components/input/LoginInput';
 import { InputField } from '../components/InputField';
-import { authState } from '../components/store/authState';
-import { LoadingState } from '../components/store/loadingState';
-import { useLogin } from '../hooks/useLogin';
+import { authState } from '../store/authState';
+import { LoadingState } from '../store/loadingState';
+import { useAuth } from '../hooks/useAuth';
 
 export const Login: VFC = () => {
   const [email, setEMail] = useState('');
   const [pass, setPass] = useState('');
-  const [login] = useLogin();
+  const { login } = useAuth();
   const [auth, setAuth] = useRecoilState<boolean>(authState);
   const loading = useRecoilValue<boolean>(LoadingState);
   const navigate = useNavigate();
