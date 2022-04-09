@@ -6,13 +6,14 @@ import { memoState } from '../store/memoState';
 import { useMemoCrud } from '../hooks/useMemoCrud';
 import { LoadingState } from '../store/loadingState';
 import { modalState } from '../store/modalState';
+import { ActionButton } from './button/ActionButton';
 
 export const TodoList: VFC = memo(() => {
   const { readMemo, upDateMemo, deleteMemo } = useMemoCrud();
   const memos = useRecoilValue(memoState);
   const [modal, setModal] = useRecoilState(modalState);
   const setEditIndex = useSetRecoilState(editIndexState);
-  const Loading = useRecoilValue<boolean>(LoadingState);
+  const loading = useRecoilValue<boolean>(LoadingState);
 
   useEffect(() => {
     readMemo();
@@ -35,7 +36,7 @@ export const TodoList: VFC = memo(() => {
 
   return (
     <ul className="todo-list mt-8 w-full">
-      {Loading && (
+      {loading && (
         <>
           <div className="absolute top-[40%] left-[50%] z-20 translate-x-[-50%]">
             <div className="h-12 w-12 animate-spin rounded-xl bg-blue-300" />
@@ -53,25 +54,9 @@ export const TodoList: VFC = memo(() => {
             <p className={`break-words py-1 px-4 text-left ${list.mark_div && 'line-through'} `}>{list.description}</p>
             <div className="flex w-full flex-row items-center justify-end rounded border-t border-slate-200 px-4">
               <div className="mt-1">
-                <button onClick={() => handleEdit(index)} className="bg-blue-300 px-4 py-1" disabled={Loading}>
-                  <i className="pointer-events-none">
-                    <FaEdit />
-                  </i>
-                </button>
-                <button
-                  onClick={() => handleComplete(list.id, list.title, list.category, list.description, list.date, Boolean(list.mark_div))}
-                  className="ml-4 bg-amber-300 px-4 py-1"
-                  disabled={Loading}
-                >
-                  <i className="pointer-events-none">
-                    <FaCheck />
-                  </i>
-                </button>
-                <button onClick={() => handleDelete(list.id)} className="ml-4 bg-lime-300 px-4 py-1" disabled={Loading}>
-                  <i className="pointer-events-none">
-                    <FaTrashAlt />
-                  </i>
-                </button>
+                <ActionButton bg="bg-blue-300" onClick={() => handleEdit(index)} CustomTag={FaEdit} />
+                <ActionButton bg="bg-amber-300" onClick={() => handleComplete(list.id, list.title, list.category, list.description, list.date, Boolean(list.mark_div))} CustomTag={FaCheck} />
+                <ActionButton bg="bg-lime-300" onClick={() => handleDelete(list.id)} CustomTag={FaTrashAlt} />
               </div>
             </div>
           </div>
