@@ -1,19 +1,19 @@
 import { memo, useEffect, VFC } from 'react';
 import { FaEdit, FaCheck, FaTrashAlt } from 'react-icons/fa';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { editIndexState } from '../store/editIndexState';
 import { memoState } from '../store/memoState';
 import { useMemoCrud } from '../hooks/useMemoCrud';
 import { LoadingState } from '../store/loadingState';
 import { modalState } from '../store/modalState';
 import { ActionButton } from './button/ActionButton';
+import { editIndexState } from '../store/indexState';
 
 export const TodoList: VFC = memo(() => {
   const { readMemo, upDateMemo, deleteMemo } = useMemoCrud();
   const memos = useRecoilValue(memoState);
   const [modal, setModal] = useRecoilState(modalState);
-  const setEditIndex = useSetRecoilState(editIndexState);
   const loading = useRecoilValue<boolean>(LoadingState);
+  const setEditIndex = useSetRecoilState(editIndexState);
 
   useEffect(() => {
     readMemo();
@@ -52,12 +52,31 @@ export const TodoList: VFC = memo(() => {
               {list.category !== '' && <span className="rounded-full bg-slate-100 px-4 py-1 text-sm">{list.category}</span>}
             </div>
             <p className={`break-words py-1 px-4 text-left ${list.mark_div && 'line-through'} `}>{list.description}</p>
-            <div className="flex w-full flex-row items-center justify-end rounded border-t border-slate-200 px-4">
-              <div className="mt-1">
-                <ActionButton bg="bg-blue-300" onClick={() => handleEdit(index)} CustomTag={FaEdit} />
-                <ActionButton bg="bg-amber-300" onClick={() => handleComplete(list.id, list.title, list.category, list.description, list.date, Boolean(list.mark_div))} CustomTag={FaCheck} />
-                <ActionButton bg="bg-lime-300" onClick={() => handleDelete(list.id)} CustomTag={FaTrashAlt} />
-              </div>
+            <div className="flex w-full flex-row items-center justify-end rounded border-t border-slate-200 px-4 py-1">
+              <ActionButton
+                index={index}
+                bg="bg-blue-300"
+                onClick={() => {
+                  handleEdit(index);
+                }}
+                CustomTag={FaEdit}
+              />
+              <ActionButton
+                index={index}
+                bg="bg-amber-300"
+                onClick={() => {
+                  handleComplete(list.id, list.title, list.category, list.description, list.date, Boolean(list.mark_div));
+                }}
+                CustomTag={FaCheck}
+              />
+              <ActionButton
+                index={index}
+                bg="bg-lime-300"
+                onClick={() => {
+                  handleDelete(list.id);
+                }}
+                CustomTag={FaTrashAlt}
+              />
             </div>
           </div>
         </li>

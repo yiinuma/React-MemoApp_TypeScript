@@ -2,7 +2,7 @@ import { memo, useEffect, useState, VFC } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useMemoCrud } from '../hooks/useMemoCrud';
 import { memoState } from '../store/memoState';
-import { editIndexState } from '../store/editIndexState';
+import { editIndexState } from '../store/indexState';
 import { modalState } from '../store/modalState';
 import { ModalInput } from './input/Modalnput';
 import { InputField } from './InputField';
@@ -16,7 +16,6 @@ export const Modal: VFC = memo(() => {
   const [editDescription, setEditDescription] = useState('');
   const [modal, setModal] = useRecoilState(modalState);
   const [editIndex, setEditIndex] = useRecoilState(editIndexState);
-  console.log(modal);
   useEffect(() => {
     if (editIndex !== null) {
       setEditTitle(memos[editIndex].title);
