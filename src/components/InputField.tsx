@@ -9,7 +9,7 @@ type Props = {
 export const InputField: FC<Props> = (props) => {
   const { htmlFor, label, children } = props;
   return (
-    <label htmlFor={htmlFor} className="text-left">
+    <label htmlFor={htmlFor} className="text-left font-semibold">
       {label}
       {children}
     </label>
