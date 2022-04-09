@@ -77,7 +77,7 @@ export const Modal: VFC = memo(() => {
               <ModalInput
                 CustomTag="input"
                 id="category"
-                required
+                required={false}
                 type="text"
                 value={editCategory}
                 onChange={(e) => {
@@ -89,7 +89,7 @@ export const Modal: VFC = memo(() => {
               <ModalInput
                 CustomTag="textarea"
                 id="description"
-                required
+                required={false}
                 type="text"
                 value={editDescription}
                 onChange={(e) => {
