@@ -17,7 +17,7 @@ type AxiosExpType = {
   exp: number;
 };
 
-export const useLogin = () => {
+export const useAuth = () => {
   const navigate = useNavigate();
   const { loginInstance } = axiosInstance();
   const setAuth = useSetRecoilState<boolean>(authState);
@@ -56,5 +56,16 @@ export const useLogin = () => {
     },
     [loginInstance, navigate, setAuth, setLoading]
   );
-  return [login];
+
+  const logout = useCallback(() => {
+    setAuth(false);
+    localStorage.removeItem('token');
+    localStorage.removeItem('exp');
+    localStorage.setItem('auth', JSON.stringify(false));
+    navigate('/');
+    toast.success('ログインアウトしました');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setAuth]);
+
+  return { login, logout };
 };

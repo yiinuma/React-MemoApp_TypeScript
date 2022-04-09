@@ -7,12 +7,12 @@ import { LoginInput } from '../components/input/LoginInput';
 import { InputField } from '../components/InputField';
 import { authState } from '../store/authState';
 import { LoadingState } from '../store/loadingState';
-import { useLogin } from '../hooks/useLogin';
+import { useAuth } from '../hooks/useAuth';
 
 export const Login: VFC = () => {
   const [email, setEMail] = useState('');
   const [pass, setPass] = useState('');
-  const [login] = useLogin();
+  const { login } = useAuth();
   const [auth, setAuth] = useRecoilState<boolean>(authState);
   const loading = useRecoilValue<boolean>(LoadingState);
   const navigate = useNavigate();
