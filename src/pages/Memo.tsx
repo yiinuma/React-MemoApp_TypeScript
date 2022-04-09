@@ -3,6 +3,8 @@ import { RecoilRoot } from 'recoil';
 import { LogoutButton } from '../components/button/LogoutButton';
 
 import { InputForm } from '../components/InputForm';
+import { Layout } from '../components/Layout/Layout';
+import { MainLayout } from '../components/Layout/MainLayout';
 import { Modal } from '../components/Modal';
 import { Title } from '../components/Title';
 import { TodoList } from '../components/TodoList';
@@ -10,14 +12,14 @@ import '../style.css';
 
 export const Memo: VFC = memo(() => (
   <RecoilRoot>
-    <div className="min-h-screen bg-gradient-to-l from-slate-500 to-slate-700 px-4 pt-4">
+    <Layout>
       <LogoutButton />
-      <Title />
-      <div className="mt-8 ml-auto mr-auto flex w-[80%] flex-col justify-center">
+      <MainLayout>
+        <Title />
         <InputForm />
         <TodoList />
-      </div>
-      <Modal />
-    </div>
+        <Modal />
+      </MainLayout>
+    </Layout>
   </RecoilRoot>
 ));
