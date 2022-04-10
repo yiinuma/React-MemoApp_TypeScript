@@ -46,13 +46,13 @@ export const useAuth = () => {
           localStorage.setItem('auth', JSON.stringify(true));
           localStorage.setItem('token', res.data.access_token);
           localStorage.setItem('exp', JSON.stringify(decodedToken.exp));
-          setLoading(false);
           navigate('memo');
           toast.success('ログインに成功しました');
         })
         .catch(() => {
           toast.error('ログインに失敗しました');
-        });
+        })
+        .finally(() => setLoading(false));
     },
     [loginInstance, navigate, setAuth, setLoading]
   );
