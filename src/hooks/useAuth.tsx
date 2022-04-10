@@ -41,7 +41,6 @@ export const useAuth = () => {
         .then((res) => {
           const decodedToken = jwtDecode<AxiosExpType>(res.data.access_token);
 
-          setAuth(true);
           localStorage.setItem('auth', JSON.stringify(true));
           localStorage.setItem('token', res.data.access_token);
           localStorage.setItem('exp', JSON.stringify(decodedToken.exp));
@@ -53,7 +52,7 @@ export const useAuth = () => {
         })
         .finally(() => setLoginLoading(false));
     },
-    [loginInstance, navigate, setAuth]
+    [loginInstance, navigate]
   );
 
   const logout = useCallback(() => {

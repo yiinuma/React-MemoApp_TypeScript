@@ -21,12 +21,9 @@ export const Login: VFC = () => {
     if (localExp >= new Date().getTime() / 1000 && localAuth) {
       const exp = new Date(localExp * 1000);
       setAuth(true);
-
-      if (auth) {
-        navigate('memo');
-        toast.success('ログインに成功しました');
-        console.log('セッション有効期限', exp);
-      }
+      navigate('memo');
+      toast.success('ログインに成功しました');
+      console.log('セッション有効期限', exp);
     }
   }, [auth, navigate, setAuth]);
 
