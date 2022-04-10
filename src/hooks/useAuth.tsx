@@ -1,10 +1,9 @@
 import jwtDecode from 'jwt-decode';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { authState } from '../store/authState';
-import { LoadingState } from '../store/loadingState';
 import { axiosInstance } from '../lib/axiosInstance';
 
 type AxiosType = {
@@ -21,7 +20,7 @@ export const useAuth = () => {
   const navigate = useNavigate();
   const { loginInstance } = axiosInstance();
   const setAuth = useSetRecoilState<boolean>(authState);
-  const setLoading = useSetRecoilState<boolean>(LoadingState);
+  const [loginLoading, setLoginLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const localAuth = localStorage.getItem('auth');
@@ -36,7 +35,7 @@ export const useAuth = () => {
 
   const login = useCallback(
     (email: string, pass: string) => {
-      setLoading(true);
+      setLoginLoading(true);
       loginInstance
         .post<AxiosType>('login', { email, password: pass })
         .then((res) => {
@@ -52,9 +51,9 @@ export const useAuth = () => {
         .catch(() => {
           toast.error('ログインに失敗しました');
         })
-        .finally(() => setLoading(false));
+        .finally(() => setLoginLoading(false));
     },
-    [loginInstance, navigate, setAuth, setLoading]
+    [loginInstance, navigate, setAuth]
   );
 
   const logout = useCallback(() => {
@@ -67,5 +66,5 @@ export const useAuth = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setAuth]);
 
-  return { login, logout };
+  return { login, logout, loginLoading };
 };

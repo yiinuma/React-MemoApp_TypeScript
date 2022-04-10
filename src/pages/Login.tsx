@@ -2,19 +2,17 @@
 import { ChangeEventHandler, useEffect, useState, VFC } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { LoginInput } from '../components/input/LoginInput';
 import { InputField } from '../components/InputField';
 import { authState } from '../store/authState';
-import { LoadingState } from '../store/loadingState';
 import { useAuth } from '../hooks/useAuth';
 
 export const Login: VFC = () => {
-  const [email, setEMail] = useState('');
-  const [pass, setPass] = useState('');
-  const { login } = useAuth();
+  const [email, setEMail] = useState<string>('');
+  const [pass, setPass] = useState<string>('');
+  const { login, loginLoading } = useAuth();
   const [auth, setAuth] = useRecoilState<boolean>(authState);
-  const loading = useRecoilValue<boolean>(LoadingState);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,8 +28,7 @@ export const Login: VFC = () => {
         console.log('セッション有効期限', exp);
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [auth]);
+  }, [auth, navigate, setAuth]);
 
   const handleEmailChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setEMail(e.target.value);
@@ -43,7 +40,7 @@ export const Login: VFC = () => {
   return (
     <figure className="flex h-screen bg-gray-100">
       <div className="border-primaryBorder relative m-auto w-full max-w-md rounded-lg border bg-white py-10 px-1 shadow-lg">
-        {loading && (
+        {loginLoading && (
           <>
             <div className="absolute top-[40%] left-[50%] z-20 translate-x-[-50%]">
               <div className="h-12 w-12 animate-spin rounded-xl bg-blue-300" />

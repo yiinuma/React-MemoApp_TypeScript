@@ -3,16 +3,14 @@ import { FaEdit, FaCheck, FaTrashAlt } from 'react-icons/fa';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { memoState } from '../store/memoState';
 import { useMemoCrud } from '../hooks/useMemoCrud';
-import { LoadingState } from '../store/loadingState';
 import { modalState } from '../store/modalState';
 import { ActionButton } from './button/ActionButton';
 import { editIndexState } from '../store/indexState';
 
 export const TodoList: VFC = memo(() => {
-  const { readMemo, upDateMemo, deleteMemo } = useMemoCrud();
+  const { readMemo, readLoading, upDateMemo, updateLoading, deleteMemo, deleteLoading } = useMemoCrud();
   const memos = useRecoilValue(memoState);
   const [modal, setModal] = useRecoilState(modalState);
-  const loading = useRecoilValue<boolean>(LoadingState);
   const setEditIndex = useSetRecoilState(editIndexState);
 
   useEffect(() => {
@@ -36,7 +34,7 @@ export const TodoList: VFC = memo(() => {
 
   return (
     <ul className="todo-list mt-8 w-full">
-      {loading && (
+      {(readLoading || updateLoading || deleteLoading) && (
         <>
           <div className="absolute top-[40%] left-[50%] z-20 translate-x-[-50%]">
             <div className="h-12 w-12 animate-spin rounded-xl bg-blue-300" />
@@ -60,6 +58,7 @@ export const TodoList: VFC = memo(() => {
                   handleEdit(index);
                 }}
                 CustomTag={FaEdit}
+                disable={readLoading || updateLoading}
               />
               <ActionButton
                 index={index}
@@ -68,6 +67,7 @@ export const TodoList: VFC = memo(() => {
                   handleComplete(list.id, list.title, list.category, list.description, list.date, Boolean(list.mark_div));
                 }}
                 CustomTag={FaCheck}
+                disable={readLoading || updateLoading}
               />
               <ActionButton
                 index={index}
@@ -76,6 +76,7 @@ export const TodoList: VFC = memo(() => {
                   handleDelete(list.id);
                 }}
                 CustomTag={FaTrashAlt}
+                disable={readLoading || updateLoading || deleteLoading}
               />
             </div>
           </div>
